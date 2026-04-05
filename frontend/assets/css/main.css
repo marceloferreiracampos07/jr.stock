@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 1. CONFIGURAÇÃO GLOBAL DO NAVEGADOR */
+html {
+  /* Transição suave ao mudar o tema */
+  transition: background-color 0.3s ease;
+}
+
+/* Quando a classe .dark está no <html> (colocada pelo Nuxt Color Mode) */
+html.dark {
+  color-scheme: dark;
+  background-color: #000000; /* Força o fundo do navegador a ser preto */
+}
+
+html.dark body {
+  @apply bg-black text-white;
+  /* Garante que o body ocupe toda a altura e seja preto */
+  min-h-screen; 
+}
+
+/* 2. CUSTOMIZAÇÃO DE COMPONENTES NO MODO ESCURO */
+@layer components {
+  
+  /* Ajuste para os Cards que usam bg-white */
+  .dark .bg-white {
+    @apply bg-zinc-950 border-zinc-800 text-zinc-100;
+    box-shadow: 0 25px 50px -12px rgba(234, 179, 8, 0.05); /* Sombra amarela bem sutil */
+  }
+
+  /* Ajuste para Inputs (Caso seus componentes AppInput usem essas classes) */
+  .dark input, 
+  .dark textarea, 
+  .dark select {
+    @apply bg-zinc-900 border-zinc-700 text-white placeholder-zinc-500 focus:border-yellow-500 focus:ring-yellow-500/20;
+  }
+
+  /* Ajuste para Textos Cinzas (que somem no fundo preto) */
+  .dark .text-gray-800, .dark .text-gray-900 {
+    @apply text-zinc-100;
+  }
+
+  .dark .text-gray-500, .dark .text-gray-600 {
+    @apply text-zinc-400;
+  }
+
+  /* 3. CORES DE DESTAQUE (AMARELO BODE DO NÔ) */
+  
+  /* Quando o elemento tiver borda azul, no dark vira amarela */
+  .dark .border-blue-600, .dark .border-blue-500 {
+    @apply border-yellow-500;
+  }
+
+  /* Links e botões que devem brilhar no Dark */
+  .dark .text-blue-600 {
+    @apply text-yellow-500;
+  }
+
+  /* Forçar botões principais a ficarem amarelos no Dark */
+  .dark .bg-blue-600, .dark .bg-blue-700 {
+    @apply bg-yellow-500 text-black font-bold hover:bg-yellow-400;
+  }
+}
+
+/* 4. AJUSTES FINOS DE LAYOUT */
+/* Remove qualquer margem ou padding que possa causar faixas brancas */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Se você estiver usando o Scrollbar do Windows, vamos deixar ele escuro também */
+.dark ::-webkit-scrollbar {
+  width: 10px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  @apply bg-black;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-zinc-800 rounded-full border-2 border-black;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  @apply bg-yellow-500;
+}

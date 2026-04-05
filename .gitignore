@@ -1,0 +1,16 @@
+# Ignora dependências do front e do back
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Ignora builds e temporários do Nuxt
+.nuxt/
+.output/
+dist/
+frontend/.nuxt/
+frontend/.output/
+
+# Ignora arquivos de senha/chaves
+.env
+frontend/.env
+backend/.env

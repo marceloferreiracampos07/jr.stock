@@ -1,0 +1,34 @@
+Para um projeto profissional de Node.js com Sequelize, o seu .gitignore é o que garante que você não envie arquivos pesados, senão a "chave" do seu servidor (o .env) vai parar no GitHub e qualquer um poderá hackear seu sistema.
+
+Aqui está o conteúdo essencial para o seu arquivo .gitignore na raiz do projeto:
+
+Plaintext
+# Dependências (Nunca envie a pasta node_modules, é pesadíssima)
+node_modules/
+
+# Configurações de Ambiente (SEGURANÇA: Nunca envie sua APP_SECRET ou senhas de banco)
+.env
+.env.test
+.env.local
+
+# Logs (Arquivos de erro que o Node gera)
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# IDEs (Configurações específicas do seu VS Code ou WebStorm)
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+
+# Sistema Operacional (Lixo que o Windows/Mac cria nas pastas)
+Thumbs.db
+.DS_Store
+
+# Build/Dist (Se você for compilar o código no futuro)
+dist/
+build/
