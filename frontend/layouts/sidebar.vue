@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from 'vue'
 
-// Estado da Sidebar
+
 const isSidebarOpen = ref(true)
 
-// Itens do Menu
+
 const menuItems = [
   { name: 'Dashboard', path: '/', icon: '📊' },
   { name: 'Produtos', path: '/produtos', icon: '📦' },

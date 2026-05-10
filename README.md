@@ -41,6 +41,13 @@ O projeto utiliza uma **Arquitetura em Camadas (N-Tier Architecture)**, focada e
 2. Instale as dependências: `npm install`
 3. Inicie o projeto: `npm run dev`
 
+### Docker (Recomendado)
+Para rodar todo o ecossistema (Banco + Back + Front) com apenas um comando e isolamento de rede:
+```bash
+docker-compose up --build
+```
+*O acesso será restrito ao seu localhost (127.0.0.1) por questões de segurança.*
+
 ## 🧪 Testes
 Para rodar os testes unitários do backend:
 ```bash

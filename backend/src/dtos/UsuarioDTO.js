@@ -1,7 +1,5 @@
 class UsuarioDTO {
-  /**
-   * Transforma um objeto do banco de dados em um formato seguro para o frontend.
-   */
+  
   static paraResposta(usuario) {
     if (!usuario) return null;
 
@@ -14,9 +12,7 @@ class UsuarioDTO {
     };
   }
 
-  /**
-   * Transforma uma lista de usuários.
-   */
+  
   static paraLista(usuarios) {
     return usuarios.map((user) => this.paraResposta(user));
   }

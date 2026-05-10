@@ -7,10 +7,10 @@ const gate = require('../gates');
 const validate = require('../middlewares/validation');
 const { usuarioStoreSchema, usuarioUpdateSchema } = require('../requests/UsuarioRequest');
 
-// Rota pública para cadastro inicial
+
 routes.post('/', validate(usuarioStoreSchema), UsuarioController.store);
 
-// Rotas protegidas
+
 routes.use(authMiddleware);
 
 routes.get('/', gate.authorize('manage-users'), UsuarioController.index);

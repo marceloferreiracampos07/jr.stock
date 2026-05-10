@@ -1,7 +1,7 @@
 const logger = require('../config/logger');
 
 module.exports = async (err, req, res, next) => {
-  // Registra o erro no Winston (salva no arquivo logs/error.log)
+  
   logger.error({
     message: err.message,
     stack: err.stack,

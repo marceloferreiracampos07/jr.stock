@@ -8,18 +8,18 @@ Snippet de código
 <script setup>
 import { ref, onMounted } from 'vue'
 
-// Importando o motor de API do Jr.Stock
+
 const { call } = useApi()
 
 definePageMeta({
   layout: 'sidebar'
 })
 
-// --- ESTADOS ---
+
 const loading = ref(true)
 const periodoSelecionado = ref('mes')
 
-// --- DADOS DO BANCO ---
+
 const estatisticas = ref({
   totalEntradas: 0,
   totalSaidas: 0,
@@ -27,17 +27,17 @@ const estatisticas = ref({
   giroEstoque: 0
 })
 
-// --- CHAMADA AO BACK-END ---
+
 const fetchRelatorios = async () => {
   loading.value = true
   try {
-    // Chamada real: enviamos o período como query para o back-end filtrar no SQL
+    
     const response = await call('/relatorios', {
       method: 'GET',
       params: { periodo: periodoSelecionado.value }
     })
     
-    // Mapeando a resposta do banco para o estado do front
+    
     estatisticas.value = {
       totalEntradas: response.totalEntradas || 0,
       totalSaidas: response.totalSaidas || 0,
@@ -46,7 +46,7 @@ const fetchRelatorios = async () => {
     }
   } catch (error) {
     console.error("Erro ao buscar métricas do banco:", error)
-    // Fallback para não quebrar a UI
+    
     estatisticas.value = { totalEntradas: 0, totalSaidas: 0, valorEstoque: 0, giroEstoque: 0 }
   } finally {
     loading.value = false
@@ -55,7 +55,7 @@ const fetchRelatorios = async () => {
 
 const exportarPDF = async () => {
   alert('Gerando relatório consolidado do banco de dados...')
-  // Dica: Para PDF real no Nuxt, você pode usar a biblioteca 'jspdf' ou 'html2pdf.js'
+  
   console.log('Exportação solicitada para o período:', periodoSelecionado.value)
 }
 

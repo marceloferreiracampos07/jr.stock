@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 const UsuarioService = require('../UsuarioService');
 const { Usuario } = require('../../models');
 
-// Mock do modelo Usuario para não tocar no banco de dados real
+
 vi.mock('../../models', () => ({
   Usuario: {
     findOne: vi.fn(),
@@ -16,7 +16,7 @@ describe('UsuarioService', () => {
   });
 
   it('deve lançar um erro se o e-mail já estiver em uso', async () => {
-    // Simulamos que o usuário já existe
+    
     Usuario.findOne.mockResolvedValue({ id: 1, email: 'teste@teste.com' });
 
     const dadosNovoUsuario = {
@@ -25,13 +25,13 @@ describe('UsuarioService', () => {
       senha: 'password123'
     };
 
-    // O teste espera que a função lance um erro específico
+    
     await expect(UsuarioService.criar(dadosNovoUsuario))
       .rejects.toThrow('Este e-mail já está em uso.');
   });
 
   it('deve criar um usuário com sucesso se o e-mail for único', async () => {
-    // Simulamos que o e-mail não existe
+    
     Usuario.findOne.mockResolvedValue(null);
     Usuario.create.mockResolvedValue({ id: 2, nome: 'Novo User', email: 'novo@teste.com' });
 

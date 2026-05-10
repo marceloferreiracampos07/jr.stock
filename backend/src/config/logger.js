@@ -13,19 +13,19 @@ const logger = winston.createLogger({
   ),
   defaultMeta: { service: 'jr-stock-backend' },
   transports: [
-    // Escreve todos os logs de nível 'error' em error.log
+    
     new winston.transports.File({ 
       filename: path.join(__dirname, '../../logs/error.log'), 
       level: 'error' 
     }),
-    // Escreve todos os logs de nível 'info' e abaixo em combined.log
+    
     new winston.transports.File({ 
       filename: path.join(__dirname, '../../logs/combined.log') 
     })
   ]
 });
 
-// Se não estiver em produção, loga também no console com formato legível
+
 if (process.env.NODE_ENV !== 'production') {
   logger.add(new winston.transports.Console({
     format: winston.format.combine(

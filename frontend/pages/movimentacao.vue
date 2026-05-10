@@ -1,31 +1,31 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 
-// Importando o motor de API do Jr.Stock
+
 const { call } = useApi()
 
 definePageMeta({
   layout: 'sidebar'
 })
 
-// --- ESTADOS ---
+
 const loading = ref(true)
 const movimentacoes = ref([]) 
 const filtroTipo = ref('todos')
 
-// --- BUSCA DE DADOS REAIS ---
+
 const fetchMovimentacoes = async () => {
   loading.value = true
   try {
-    // Chamada real para o seu Back-end
-    // A rota deve retornar { id, produto: { nome }, tipo, quantidade, data }
+    
+    
     const data = await call('/movimentacoes')
     
-    // Mapeamos para garantir que a estrutura case com o seu template
+    
     movimentacoes.value = data.map(m => ({
       id: m.id,
       produto: m.produto?.nome || 'Produto Indisponível',
-      tipo: m.tipo, // 'entrada' ou 'saida'
+      tipo: m.tipo, 
       qtd: m.quantidade
     }))
     
@@ -36,7 +36,7 @@ const fetchMovimentacoes = async () => {
   }
 }
 
-// --- LÓGICA DE FILTRO ---
+
 const listaFiltrada = computed(() => {
   if (filtroTipo.value === 'todos') {
     return movimentacoes.value

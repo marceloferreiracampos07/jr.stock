@@ -4,7 +4,7 @@ const sequelize = require('../config/db');
 class Movimentacao extends Model {}
 
 Movimentacao.init({
-  // Tipo: se o produto está a entrar ou a sair
+  
   tipo: {
     type: DataTypes.ENUM('entrada', 'saida'),
     allowNull: false,
@@ -31,7 +31,7 @@ Movimentacao.init({
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW
   },
-  // IDs das relações (serão vinculados no index.js)
+  
   produto_id: {
     type: DataTypes.INTEGER,
     allowNull: false,

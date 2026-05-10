@@ -3,7 +3,7 @@ const UsuarioDTO = require('../dtos/UsuarioDTO');
 
 class UsuarioController {
   
-  // LISTAR TODOS
+  
   async index(req, res) {
     try {
       const usuarios = await UsuarioService.listarTodos();
@@ -13,7 +13,7 @@ class UsuarioController {
     }
   }
 
-  // CADASTRAR NOVO
+  
   async store(req, res) {
     try {
       const usuario = await UsuarioService.criar(req.body);
@@ -23,7 +23,7 @@ class UsuarioController {
     }
   }
 
-  // ATUALIZAR
+  
   async update(req, res) {
     try {
       const { id } = req.params;
@@ -35,7 +35,7 @@ class UsuarioController {
     }
   }
 
-  // DELETAR
+  
   async delete(req, res) {
     try {
       const { id } = req.params;

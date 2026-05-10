@@ -1,7 +1,7 @@
 <script setup>
 defineProps({
   type: { type: String, default: 'button' },
-  variant: { type: String, default: 'primary' }, // primary, success, danger
+  variant: { type: String, default: 'primary' }, 
   disabled: Boolean
 })
 </script>

@@ -1,21 +1,21 @@
 const { Sequelize } = require('sequelize');
-require('dotenv').config(); // Para ler o arquivo .env
+require('dotenv').config(); 
 
 const sequelize = new Sequelize(
-  process.env.DB_NAME,      // Nome do banco (ex: estoque_db)
-  process.env.DB_USER,      // Usuário (ex: root)
-  process.env.DB_PASS,      // Senha
+  process.env.DB_NAME,      
+  process.env.DB_USER,      
+  process.env.DB_PASS,      
   {
-    host: process.env.DB_HOST, // Geralmente localhost
+    host: process.env.DB_HOST, 
     dialect: 'mysql',
-    logging: false,            // Desativa os logs de SQL no console (deixe true se quiser ver as queries)
+    logging: false,            
     define: {
-      timestamps: true,        // Cria createdAt e updatedAt automaticamente
-      underscored: true,       // Usa snake_case (nome_produto) em vez de camelCase
+      timestamps: true,        
+      underscored: true,       
       underscoredAll: true
     },
     pool: {
-      max: 5,                  // Máximo de conexões simultâneas
+      max: 5,                  
       min: 0,
       acquire: 30000,
       idle: 10000

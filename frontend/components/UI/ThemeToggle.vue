@@ -1,7 +1,7 @@
 <script setup>
 const colorMode = useColorMode()
 
-// Função para alternar entre light e dark
+
 const toggleTheme = () => {
   colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
 }

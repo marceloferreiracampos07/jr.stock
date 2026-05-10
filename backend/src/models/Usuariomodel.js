@@ -31,7 +31,7 @@ Usuario.init({
     type: DataTypes.VIRTUAL,
     allowNull: false,
     validate: {
-      len: [6, 20] // Mínimo 6 caracteres
+      len: [6, 20] 
     }
   },
   cargo: {
@@ -43,16 +43,16 @@ Usuario.init({
   modelName: 'Usuario',
   tableName: 'usuarios',
   underscored: true,
-  // HOOKS: Executam funções automaticamente antes de certas ações
+  
   hooks: {
     beforeSave: async (usuario) => {
       if (usuario.senha) {
-        // Transforma a senha em hash antes de salvar no banco
+        
         usuario.senha_hash = await bcrypt.hash(usuario.senha, 8);
       }
     }
   },
-  // ESCOPO: Protege a senha de ser listada em buscas comuns
+  
   defaultScope: {
     attributes: { exclude: ['senha_hash'] }
   },

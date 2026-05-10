@@ -8,18 +8,18 @@ Snippet de código
 <script setup>
 import { ref, onMounted } from 'vue'
 
-// Importando o motor de API do jr.stock
+
 const { call } = useApi()
 
 definePageMeta({
   layout: 'sidebar'
 })
 
-// --- ESTADOS ---
+
 const loading = ref(true)
 const fornecedores = ref([])
 const isModalOpen = ref(false)
-const submetendo = ref(false) // Para evitar cliques duplos no botão de salvar
+const submetendo = ref(false) 
 
 const novoFornecedor = ref({
   nome: '',
@@ -28,11 +28,11 @@ const novoFornecedor = ref({
   categoria: ''
 })
 
-// BUSCAR FORNECEDORES DO BANCO
+
 const fetchFornecedores = async () => {
   loading.value = true
   try {
-    // Chamada real para a API do back-end
+    
     const data = await call('/fornecedores')
     fornecedores.value = data
   } catch (error) {
@@ -42,7 +42,7 @@ const fetchFornecedores = async () => {
   }
 }
 
-// CADASTRAR NOVO FORNECEDOR
+
 const handleSubmit = async () => {
   if (!novoFornecedor.value.nome) return alert('O nome é obrigatório!')
   
@@ -55,7 +55,7 @@ const handleSubmit = async () => {
     
     alert('Fornecedor cadastrado com sucesso!')
     closeModal()
-    fetchFornecedores() // Recarrega a lista para mostrar o novo
+    fetchFornecedores() 
   } catch (error) {
     alert(error.message || 'Erro ao salvar no banco.')
   } finally {

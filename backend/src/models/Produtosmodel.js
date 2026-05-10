@@ -27,14 +27,14 @@ Produto.init({
   estoque_minimo: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
-    defaultValue: 5.00 // Avisa quando chegar em 5 itens
+    defaultValue: 5.00 
   },
   unidade_medida: {
     type: DataTypes.STRING,
-    defaultValue: 'un', // un, kg, lt, pct
+    defaultValue: 'un', 
   },
-  // A chave estrangeira (fornecedor_id) o Sequelize pode criar sozinho 
-  // por causa da relação no index.js, mas é bom declarar aqui para clareza:
+  
+  
   fornecedor_id: {
     type: DataTypes.INTEGER,
     allowNull: false,

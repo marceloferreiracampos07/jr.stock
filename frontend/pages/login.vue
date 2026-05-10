@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-// Nuxt importa automaticamente seu useApi
+
 const { call } = useApi()
 
 definePageMeta({
@@ -18,7 +18,7 @@ const handleLogin = async () => {
   loading.value = true
   
   try {
-    // Chamada para a rota de sessões do seu back-end
+    
     const response = await call('/sessions', {
       method: 'POST',
       body: JSON.stringify({
@@ -27,14 +27,14 @@ const handleLogin = async () => {
       })
     })
 
-    // Salva o Token e os dados básicos do usuário
-    // O prefixo '@jrstock:' ajuda a organizar o localStorage
+    
+    
     localStorage.setItem('@jrstock:token', response.token)
     localStorage.setItem('@jrstock:user', JSON.stringify(response.user))
 
     console.log('Login realizado com sucesso!')
     
-    // Redireciona para o Dashboard agora autenticado
+    
     navigateTo('/dashboard') 
     
   } catch (error) {

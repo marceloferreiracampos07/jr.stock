@@ -1,8 +1,8 @@
 <script setup>
-// 1. Importações necessárias (Caso seu Nuxt não faça auto-import)
+
 import { ref, onMounted } from 'vue'
 
-// 2. Chamada do seu composable de API
+
 const { call } = useApi()
 
 definePageMeta({
@@ -11,7 +11,7 @@ definePageMeta({
 
 const loading = ref(false)
 
-// Estados das Configurações
+
 const config = ref({
   nomeEmpresa: '',
   cnpj: '',
@@ -20,7 +20,7 @@ const config = ref({
   moeda: 'BRL'
 })
 
-// Busca as configurações ao carregar a página
+
 onMounted(() => {
   const savedConfig = localStorage.getItem('@jrstock:config')
   if (savedConfig) {
@@ -36,10 +36,10 @@ const salvarConfig = async () => {
   loading.value = true
   
   try {
-    // Salva no localStorage para persistência no Front
+    
     localStorage.setItem('@jrstock:config', JSON.stringify(config.value))
     
-    // Simulação de delay para feedback visual de 'Salvando...'
+    
     await new Promise(resolve => setTimeout(resolve, 800))
     
     alert('Configurações atualizadas com sucesso!')
@@ -56,8 +56,8 @@ const limparBanco = async () => {
   if (confirmar) {
     loading.value = true
     try {
-      // Exemplo de como você chamaria sua rota de Admin no back-end
-      // await call('/admin/reset', { method: 'DELETE' })
+      
+      
       
       alert('Banco de dados resetado com sucesso (Simulação).')
     } catch (error) {

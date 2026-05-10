@@ -7,7 +7,7 @@ definePageMeta({
   layout: 'sidebar'
 })
 
-// --- ESTADOS ---
+
 const loading = ref(true)
 const dadosDashboard = ref({
   totalProdutos: 0,
@@ -16,20 +16,20 @@ const dadosDashboard = ref({
   movimentacoesMes: 0
 })
 
-// --- BUSCA DE DADOS ---
+
 const fetchDashboardData = async () => {
   loading.value = true
   try {
-    // Você pode criar uma rota específica no Back-end chamada '/dashboard/stats'
-    // ou buscar dos produtos e calcular aqui no Front.
+    
+    
     const produtos = await call('/produtos')
-    const movimentacoes = await call('/movimentacoes') // Supondo que essa rota exista
+    const movimentacoes = await call('/movimentacoes') 
 
-    // Cálculo simples para popular os cards
+    
     dadosDashboard.value.totalProdutos = produtos.length
     dadosDashboard.value.valorTotal = produtos.reduce((acc, p) => acc + (p.preco * p.quantidade), 0)
     
-    // Alertas: Produtos com estoque abaixo de 5 (ou use o valor das Configurações)
+    
     const configSalva = JSON.parse(localStorage.getItem('@jrstock:config') || '{}')
     const estoqueMin = configSalva.estoqueMinimoGlobal || 5
     dadosDashboard.value.alertasEstoque = produtos.filter(p => p.quantidade <= estoqueMin).length
@@ -43,7 +43,7 @@ const fetchDashboardData = async () => {
   }
 }
 
-// Formatação para os Cards
+
 const metrics = computed(() => [
   { 
     label: 'Produtos em Estoque', 

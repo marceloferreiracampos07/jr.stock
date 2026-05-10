@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-// O Nuxt importa automaticamente seus composables na pasta /composables
+
 const { call } = useApi()
 
 definePageMeta({
@@ -22,25 +22,25 @@ const handleRegister = async () => {
   loading.value = true
   
   try {
-    // Chamada real para a API do jr.stock
+    
     await call('/usuarios', {
       method: 'POST',
       body: JSON.stringify({
         nome: name.value,
         email: email.value,
         senha: password.value,
-        cargo: 'admin' // Definindo como admin para você ter acesso total inicialmente
+        cargo: 'admin' 
       })
     })
 
     console.log('Conta criada com sucesso!')
     alert('Sua conta no jr.stock foi criada!')
     
-    // Após cadastrar, mandamos para o login (que é a sua index "/")
+    
     navigateTo('/') 
     
   } catch (error) {
-    // Aqui pegamos a mensagem que você configurou no seu middleware de erro do back-end
+    
     alert(error.message || 'Erro ao registrar. Verifique se o e-mail já existe.')
     console.error('Erro ao registrar:', error)
   } finally {

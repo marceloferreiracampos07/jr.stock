@@ -8,14 +8,14 @@ Snippet de código
 <script setup>
 import { ref, onMounted } from 'vue'
 
-// Importando o motor de API que criamos para o Jr.Stock
+
 const { call } = useApi()
 
 definePageMeta({
   layout: 'sidebar'
 })
 
-// --- ESTADOS ---
+
 const produtos = ref([])
 const loading = ref(true)
 const isModalOpen = ref(false)
@@ -28,7 +28,7 @@ const novoProduto = ref({
   estoque: null
 })
 
-// --- AÇÕES ---
+
 const openModal = () => {
   isModalOpen.value = true
 }
@@ -38,11 +38,11 @@ const closeModal = () => {
   novoProduto.value = { nome: '', preco: null, categoria: '', estoque: null }
 }
 
-// BUSCA NO BANCO
+
 const fetchProdutos = async () => {
   loading.value = true
   try {
-    // Chamada real para a sua rota de produtos
+    
     const data = await call('/produtos')
     produtos.value = data
   } catch (error) {
@@ -52,13 +52,13 @@ const fetchProdutos = async () => {
   }
 }
 
-// SALVAR NO BANCO
+
 const salvarProduto = async () => {
   if (salvando.value) return
   salvando.value = true
   
   try {
-    // POST real para o back-end
+    
     await call('/produtos', { 
       method: 'POST', 
       body: JSON.stringify(novoProduto.value) 
@@ -66,7 +66,7 @@ const salvarProduto = async () => {
     
     alert('Produto cadastrado com sucesso!')
     closeModal()
-    fetchProdutos() // Recarrega a lista automaticamente
+    fetchProdutos() 
   } catch (error) {
     alert('Erro ao salvar produto: ' + error.message)
   } finally {

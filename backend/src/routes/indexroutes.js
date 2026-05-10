@@ -7,7 +7,7 @@ const fornecedorRoutes = require('./fornecedor.routes');
 const produtoRoutes = require('./produto.routes');
 const movimentacaoRoutes = require('./movimentacao.routes');
 
-routes.use(sessionRoutes); // /login
+routes.use(sessionRoutes); 
 routes.use('/usuarios', usuarioRoutes);
 routes.use('/fornecedores', fornecedorRoutes);
 routes.use('/produtos', produtoRoutes);
