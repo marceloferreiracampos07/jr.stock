@@ -11,9 +11,10 @@ module.exports = async (req, res, next) => {
   const [, token] = authHeader.split(' ');
 
   try {
-    const decoded = await promisify(jwt.verify)(token, process.env.APP_SECRET);
+    const { id, cargo } = decoded;
 
-    req.usuarioId = decoded.id;
+    req.userId = id;
+    req.userCargo = cargo;
 
     return next();
   } catch (err) {
