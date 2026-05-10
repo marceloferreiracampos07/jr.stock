@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: jr_stock_db
+    restart: always
+    environment:
+      - MYSQL_DATABASE=jr_stock
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - internal_net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  backend:
+    build: ./backend
+    container_name: jr_stock_backend
+    restart: always
+    environment:
+      - NODE_ENV=development
+      - PORT=3333
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASS=root
+      - DB_NAME=jr_stock
+      - APP_SECRET=sua_chave_secreta_aqui
+    ports:
+      - "127.0.0.1:3333:3333"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - internal_net
+      - external_net
+
+  frontend:
+    build: ./frontend
+    container_name: jr_stock_frontend
+    restart: always
+    environment:
+      - NUXT_PUBLIC_API_BASE=http://localhost:3333
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - external_net
+
+networks:
+  internal_net:
+    driver: bridge
+    internal: true
+  external_net:
+    driver: bridge
