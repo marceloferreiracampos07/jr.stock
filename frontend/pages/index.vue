@@ -18,17 +18,16 @@ const dadosDashboard = ref({
 
 
 const fetchDashboardData = async () => {
+  const token = localStorage.getItem('@jrstock:token');
+  if (!token) return;
+
   loading.value = true
   try {
-    
-    
     const produtos = await call('/produtos')
     const movimentacoes = await call('/movimentacoes') 
-
     
     dadosDashboard.value.totalProdutos = produtos.length
     dadosDashboard.value.valorTotal = produtos.reduce((acc, p) => acc + (p.preco * p.quantidade), 0)
-    
     
     const configSalva = JSON.parse(localStorage.getItem('@jrstock:config') || '{}')
     const estoqueMin = configSalva.estoqueMinimoGlobal || 5
