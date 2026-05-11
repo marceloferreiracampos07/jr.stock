@@ -1,4 +1,4 @@
-const {Model,Datatypes} = require('sequelize')
+const { Model, DataTypes } = require('sequelize');
 const sequelize= require('../config/database')
 const bcrypt = require('bcryptjs');
 class Usuario extends Model{
@@ -10,14 +10,14 @@ class Usuario extends Model{
 
 Usuario.init({
     nome:{
-        type:Datatypes.STRING,
+        type:DataTypes.STRING,
         allowNull:false,
         validate:{
             notEmpty:true
         }
     },
     email:{
-        type:Datatypes.STRING,
+        type:DataTypes.STRING,
         allowNull:false,
         unique:true,
         validate: { isEmail: true }
