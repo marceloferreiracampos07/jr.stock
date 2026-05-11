@@ -15,17 +15,17 @@ app.use(express.json());
 // Rotas
 app.use(routes);
 
-// Middleware de Erro (Sempre por último após as rotas)
+// Middleware de Erro
 app.use(errorMiddleware);
 
-// Sincronização com o Banco e Inicialização do Servidor
-const PORT = process.env.PORT || 3333;
+// Exportar app para testes
+module.exports = app;
 
-db.sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => {
-    console.log(` Servidor rodando na porta ${PORT}`);
-    console.log(' Banco de dados sincronizado!');
+if (require.main === module) {
+  const PORT = process.env.PORT || 3333;
+  db.sequelize.sync({ force: false }).then(() => {
+    app.listen(PORT, () => {
+      console.log(` Servidor rodando na porta ${PORT}`);
+    });
   });
-}).catch((err) => {
-  console.error(' Erro ao conectar no banco de dados:', err);
-});
+}
