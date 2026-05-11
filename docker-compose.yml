@@ -10,6 +10,8 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     networks:
       - internal_net
+    ports:
+      - "127.0.0.1:3306:3306"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 20s
