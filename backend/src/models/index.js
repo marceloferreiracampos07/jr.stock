@@ -1,8 +1,8 @@
 
-const Fornecedor = require('./Fornecedor');
-const Produto = require('./Produto');
-const Usuario = require('./Usuario');
-const Movimentacao = require('./Movimentacao');
+const Fornecedor = require('./fornecedormodel');
+const Produto = require('./Produtosmodel');
+const Usuario = require('./Usuariomodel');
+const Movimentacao = require('./movimentacaomodels');
 
 
 Produto.belongsTo(Fornecedor, { foreignKey: 'fornecedor_id', as: 'fornecedor' });
