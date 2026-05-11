@@ -1,10 +1,13 @@
 const ProdutoService = require('../services/ProdutoService');
+const { Produto, Fornecedor } = require('../models');
 const ProdutoDTO = require('../dtos/ProdutoDTO');
+
+const service = new ProdutoService({ Produto, Fornecedor });
 
 class ProdutoController {
   async index(req, res) {
     try {
-      const produtos = await ProdutoService.listarTodos();
+      const produtos = await service.listarTodos();
       return res.json(ProdutoDTO.paraLista(produtos));
     } catch (error) {
       return res.status(500).json({ error: 'Erro ao buscar produtos.' });
@@ -13,7 +16,7 @@ class ProdutoController {
 
   async store(req, res) {
     try {
-      const produto = await ProdutoService.criar(req.body);
+      const produto = await service.criar(req.body);
       return res.status(201).json(ProdutoDTO.paraResposta(produto));
     } catch (error) {
       return res.status(400).json({ error: 'Erro ao cadastrar produto.' });
@@ -23,7 +26,7 @@ class ProdutoController {
   async update(req, res) {
     try {
       const { id } = req.params;
-      const produto = await ProdutoService.atualizar(id, req.body);
+      const produto = await service.atualizar(id, req.body);
       return res.json(ProdutoDTO.paraResposta(produto));
     } catch (error) {
       return res.status(404).json({ error: error.message });
@@ -33,7 +36,7 @@ class ProdutoController {
   async delete(req, res) {
     try {
       const { id } = req.params;
-      await ProdutoService.deletar(id);
+      await service.deletar(id);
       return res.status(204).send();
     } catch (error) {
       return res.status(404).json({ error: error.message });

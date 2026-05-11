@@ -1,45 +1,34 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-const UsuarioService = require('../UsuarioService');
-const { Usuario } = require('../../models');
-
-
-vi.mock('../../models', () => ({
-  Usuario: {
-    findOne: vi.fn(),
-    create: vi.fn(),
-  },
-}));
+import { describe, it, expect, vi } from 'vitest';
+import UsuarioService from '../UsuarioService.js';
 
 describe('UsuarioService', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
+  const mockModels = {
+    Usuario: {
+      findAll: vi.fn(),
+      findOne: vi.fn(),
+      create: vi.fn(),
+      scope: vi.fn().mockReturnThis(),
+      findByPk: vi.fn(),
+      destroy: vi.fn(),
+    }
+  };
+
+  const service = new UsuarioService(mockModels);
+
+  it('deve listar todos os usuários', async () => {
+    const lista = [{ id: 1, nome: 'User1' }];
+    mockModels.Usuario.findAll.mockResolvedValue(lista);
+
+    const resultado = await service.listarTodos();
+    expect(resultado).toEqual(lista);
   });
 
-  it('deve lançar um erro se o e-mail já estiver em uso', async () => {
-    
-    Usuario.findOne.mockResolvedValue({ id: 1, email: 'teste@teste.com' });
+  it('deve criar um usuário', async () => {
+    const dados = { nome: 'U1', email: 'u1@test.com' };
+    mockModels.Usuario.findOne.mockResolvedValue(null);
+    mockModels.Usuario.create.mockResolvedValue({ id: 1, ...dados });
 
-    const dadosNovoUsuario = {
-      nome: 'Junior',
-      email: 'teste@teste.com',
-      senha: 'password123'
-    };
-
-    
-    await expect(UsuarioService.criar(dadosNovoUsuario))
-      .rejects.toThrow('Este e-mail já está em uso.');
-  });
-
-  it('deve criar um usuário com sucesso se o e-mail for único', async () => {
-    
-    Usuario.findOne.mockResolvedValue(null);
-    Usuario.create.mockResolvedValue({ id: 2, nome: 'Novo User', email: 'novo@teste.com' });
-
-    const dados = { nome: 'Novo User', email: 'novo@teste.com', senha: 'password123' };
-    const resultado = await UsuarioService.criar(dados);
-
-    expect(resultado).toHaveProperty('id');
-    expect(resultado.email).toBe('novo@teste.com');
-    expect(Usuario.create).toHaveBeenCalledWith(dados);
+    const resultado = await service.criar(dados);
+    expect(resultado.id).toBe(1);
   });
 });

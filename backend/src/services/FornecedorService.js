@@ -1,23 +1,25 @@
-const { Fornecedor } = require('../models');
-
 class FornecedorService {
+  constructor(models) {
+    this.Fornecedor = models.Fornecedor;
+  }
+
   async listarTodos() {
-    return await Fornecedor.findAll({
+    return await this.Fornecedor.findAll({
       order: [['nome_fantasia', 'ASC']]
     });
   }
 
   async criar(dados) {
     const { cnpj } = dados;
-    const fornecedorExiste = await Fornecedor.findOne({ where: { cnpj } });
+    const fornecedorExiste = await this.Fornecedor.findOne({ where: { cnpj } });
     if (fornecedorExiste) {
       throw new Error('CNPJ já cadastrado.');
     }
-    return await Fornecedor.create(dados);
+    return await this.Fornecedor.create(dados);
   }
 
   async deletar(id) {
-    const fornecedor = await Fornecedor.findByPk(id);
+    const fornecedor = await this.Fornecedor.findByPk(id);
     if (!fornecedor) {
       throw new Error('Fornecedor não encontrado.');
     }
@@ -26,4 +28,4 @@ class FornecedorService {
   }
 }
 
-module.exports = new FornecedorService();
+export default FornecedorService;

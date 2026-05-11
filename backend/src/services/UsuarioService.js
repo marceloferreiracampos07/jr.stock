@@ -1,8 +1,10 @@
-const { Usuario } = require('../models');
-
 class UsuarioService {
+  constructor(models) {
+    this.Usuario = models.Usuario;
+  }
+
   async listarTodos() {
-    return await Usuario.findAll({
+    return await this.Usuario.findAll({
       attributes: ['id', 'nome', 'email', 'cargo', 'createdAt'],
       order: [['nome', 'ASC']]
     });
@@ -11,24 +13,24 @@ class UsuarioService {
   async criar(dados) {
     const { email } = dados;
 
-    const usuarioExiste = await Usuario.findOne({ where: { email } });
+    const usuarioExiste = await this.Usuario.findOne({ where: { email } });
     if (usuarioExiste) {
       throw new Error('Este e-mail já está em uso.');
     }
 
-    const usuario = await Usuario.create(dados);
+    const usuario = await this.Usuario.create(dados);
     return usuario;
   }
 
   async atualizar(id, dados) {
-    const usuario = await Usuario.scope('withPassword').findByPk(id);
+    const usuario = await this.Usuario.scope('withPassword').findByPk(id);
 
     if (!usuario) {
       throw new Error('Usuário não encontrado.');
     }
 
     if (dados.email && dados.email !== usuario.email) {
-      const emailExiste = await Usuario.findOne({ where: { email: dados.email } });
+      const emailExiste = await this.Usuario.findOne({ where: { email: dados.email } });
       if (emailExiste) {
         throw new Error('E-mail já está em uso.');
       }
@@ -47,7 +49,7 @@ class UsuarioService {
   }
 
   async deletar(id) {
-    const deletado = await Usuario.destroy({ where: { id } });
+    const deletado = await this.Usuario.destroy({ where: { id } });
     if (!deletado) {
       throw new Error('Usuário não encontrado.');
     }
@@ -55,4 +57,4 @@ class UsuarioService {
   }
 }
 
-module.exports = new UsuarioService();
+export default UsuarioService;
